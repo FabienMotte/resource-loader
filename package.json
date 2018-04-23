@@ -17,6 +17,7 @@
   "files": [
     "dist",
     "lib",
+    "src",
     "package.json",
     "CONTRIBUTING.md",
     "LICENSE",
