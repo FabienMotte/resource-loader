@@ -1,7 +1,7 @@
 {
   "name": "resource-loader",
   "version": "2.1.1",
-  "main": "./lib/index.js",
+  "main": "./src/index.js",
   "description": "A generic asset loader, made with web games in mind.",
   "author": "Chad Engler <chad@pantherdev.com>",
   "license": "MIT",
@@ -39,8 +39,7 @@
     "prepublish": "npm run full-build",
     "predeploy": "rm -rf ./docs && npm run docs",
     "deploy": "gh-pages -d docs",
-    "postpublish": "npm run deploy",
-    "postinstall": "npm run full-build"
+    "postpublish": "npm run deploy"
   },
   "dependencies": {
     "mini-signals": "^1.1.1",
