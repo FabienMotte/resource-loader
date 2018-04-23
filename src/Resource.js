@@ -1,8 +1,9 @@
 import parseUri from 'parse-uri';
 import Signal from 'mini-signals';
 
+const isWorker = (typeof importScripts === 'function')
 // tests is CORS is supported in XHR, if not we need to use XDR
-const useXdr = !!(window.XDomainRequest && !('withCredentials' in (new XMLHttpRequest())));
+const useXdr = isWorker ? false : !!(window.XDomainRequest && !('withCredentials' in (new XMLHttpRequest())));
 let tempAnchor = null;
 
 // some status constants
@@ -819,17 +820,19 @@ export default class Resource {
         }
 
         // default is window.location
-        loc = loc || window.location;
+        loc = loc || location;
 
-        if (!tempAnchor) {
+        if (!tempAnchor && !isWorker) {
             tempAnchor = document.createElement('a');
         }
 
         // let the browser determine the full href for the url of this resource and then
         // parse with the node url lib, we can't use the properties of the anchor element
         // because they don't work in IE9 :(
-        tempAnchor.href = url;
-        url = parseUri(tempAnchor.href, { strictMode: true });
+        if (!isWorker) {
+            tempAnchor.href = url;
+        }
+        url = parseUri(isWorker ? url : tempAnchor.href, { strictMode: true });
 
         const samePort = (!url.port && loc.port === '') || (url.port === loc.port);
         const protocol = url.protocol ? `${url.protocol}:` : '';
