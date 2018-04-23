@@ -39,7 +39,8 @@
     "prepublish": "npm run full-build",
     "predeploy": "rm -rf ./docs && npm run docs",
     "deploy": "gh-pages -d docs",
-    "postpublish": "npm run deploy"
+    "postpublish": "npm run deploy",
+    "postinstall": "npm run full-build"
   },
   "dependencies": {
     "mini-signals": "^1.1.1",
